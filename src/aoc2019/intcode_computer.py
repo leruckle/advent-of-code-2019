@@ -1,18 +1,20 @@
+from copy import copy
+
 class IntcodeComputer:
     def __init__(self):
         self.memory = []
 
     def run(self, program):
-        self.memory = program
+        self.memory = copy(program)
         for i in range(0, len(self.memory), 4):
             operator = self.memory[i]
             if operator == 99:
                 break
             if operator == 1:
-                self._add(self.memory, i)
+                self._add(i)
                 continue
             if operator == 2:
-                self._multiply(self.memory, i)
+                self._multiply(i)
                 continue
             raise Exception(f'Unexpected operator: {self.memory[i]}')
         return self.memory[0]
